@@ -1,0 +1,61 @@
+<odoo>
+    <data>
+        <record id="report_own_product_salesreport_wizard_view" model="ir.ui.view">
+            <field name="name">Own Product Sales Report</field>
+            <field name="model">own.product.sales.report</field>
+            <field name="arch" type="xml">
+                <form string="Report Options">
+                    <group col="4">
+                        <field name="date_from"/>
+                        <field name="date_to"/>
+                    </group>
+                    <group col="4">
+                        <field name="operating_unit"/>
+                        <field name="target_move"/>
+                    </group>
+
+                    <footer>
+                        <button name="export_xls" type="object" default_focus="1"
+                                string="Excel Print" class="oe_highlight"/>
+                        or
+                        <button name="check_report" string="PDF Print" type="object"
+                                class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="report_action_own_product_salesreport_wizard" model="ir.actions.act_window">
+            <field name="name">Own Product Sales Report</field>
+            <field name="res_model">own.product.sales.report</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="report_own_product_salesreport_wizard_view"/>
+            <field name="target">new</field>
+        </record>
+        <menuitem id="menu_bnk_reconciliation_wizard" name="Own Product Sales Report"
+                  parent="sale.menu_sale_report" action="report_action_own_product_salesreport_wizard"/>
+
+
+         <report
+            id="action_own_product_xls"
+            model="sale.order"
+            string="Own Product Sales Report"
+            report_type="xlsx"
+            name="own_product_salesreport.action_own_product_xls"
+            file="own_product_salesreport.action_own_product_xls"
+
+        />
+
+
+        <!--<record id="action_own_product_xls" model="ir.actions.report">-->
+        <!--<field name="name">Own Product Sales Report</field>-->
+        <!--<field name="model">report.own_product_salesreport.action_product_xls.xlsx</field>-->
+        <!--<field name="report_type">xlsx</field>-->
+        <!--<field name="report_name">own_product_salesreport.action_product_xls.xlsx</field>-->
+    <!--</record>-->
+
+    </data>
+</odoo>

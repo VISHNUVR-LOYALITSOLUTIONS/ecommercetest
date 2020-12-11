@@ -1,0 +1,12 @@
+<odoo>
+    <data>
+   <report
+    id="phygi_po_print"
+    model="purchase.order"
+    string="Purchase Order Print"
+    report_type="qweb-pdf"
+    name="phygi_purchase_order_print.phygi_po_order_print"
+    file="phygi_purchase_order_print.phygi_po_order_print"
+    />
+    </data>
+</odoo>

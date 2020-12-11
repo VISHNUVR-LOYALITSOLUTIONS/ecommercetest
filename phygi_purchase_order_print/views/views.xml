@@ -1,0 +1,566 @@
+<odoo>
+    <data>
+
+
+
+
+       <template id="phygi_po_order_print">
+                    <t t-call="web.html_container">
+                    <t t-foreach="docs" t-as="o">
+
+                <div class="page">
+                    <style>
+                        .Row {
+                                 display: table;
+                                 width: 100%; /*Optional*/
+                             }
+                        @font-face {
+                            font-family: 'Calibri';
+                            src: url('/phygi_purchase_order_print/static/src/fonts/calibri.ttf') format('truetype');
+                        }
+
+                    </style>
+                     <div class="row">
+
+
+                         <table style="width: 100%;border:1px solid black;border-collapse:collapse;border-width:2px;">
+                            <tr>
+
+                                 <td colspan="5" rowspan="2" style="vertical-align: bottom;text-align:left;font-size : 14px;font-weight:bold;border:1px solid black;border-bottom:0;border-right:0;border-collapse:collapse;">
+
+                                     <h2>Phygicart E-Commerce Private Ltd</h2>
+
+
+                                    </td>
+                                <td></td>
+                                <td style="border:1px solid black;border-collapse:collapse;font-weight:bold;">DATE:</td>
+                                <td style="font-weight:bold;border:1px solid black;border-collapse:collapse;background-color:#B0B0B0;border-right:2px solid black;" colspan="2">
+
+                                    <t t-if="o.date_order">
+                            <t t-esc="datetime.datetime.strptime(str(o.date_order), '%Y-%m-%d %H:%M:%S').strftime('%d-%m-%Y')"/>
+
+                                    </t><!--<t t-esc="o.date_order"/>-->
+                                </td>
+                            </tr>
+                             <tr>
+
+                                 <!--<td align="left" colspan="6" style="font-size : 12px;border-left:2px solid black;border-collapse:collapse;font-weight:bold;font-family:11px;">-->
+
+                                     <!--&lt;!&ndash;<t t-if="res_company.vat">&ndash;&gt;-->
+
+                                         <!--&lt;!&ndash;&lt;!&ndash;<p style="font-size : 12px;">&ndash;&gt;&ndash;&gt;-->
+
+                                         <!--&lt;!&ndash;GSTIN/UIN:<span t-field="res_company.vat"/>&ndash;&gt;-->
+                                         <!--&lt;!&ndash;&lt;!&ndash;</p>&ndash;&gt;&ndash;&gt;-->
+
+                                     <!--&lt;!&ndash;</t>&ndash;&gt;-->
+                                 <!--</td>-->
+                                 <td></td>
+                                 <td style="border:1px solid black;border-collapse:collapse;font-weight:bold;">P.O.#</td>
+                                 <td style="border:1px solid black;border-collapse:collapse;background-color:#B0B0B0;font-weight:bold;border-right:2px solid black;" colspan="2"><t t-esc="o.name"/></td>
+
+
+                             </tr>
+
+                             <tr>
+                                 <!--<td colspan="4" style="border-right:2px solid black;border-collapse:collapse;">-->
+                                     <td colspan="4">
+
+                                      <!--<div style="font-weight:bold;">-->
+                                <p style="font-size : 12px;font-weight:bold;">
+
+                                    GSTIN/UIN:<span t-field="res_company.vat"/><br/>
+
+                                    <span t-field="res_company.partner_id.street"/><br/>
+                                <span t-field="res_company.partner_id.street2"/><br/>
+                                    <t t-if="res_company.partner_id.city">
+                                        <span t-field="res_company.partner_id.city"/>,
+                                    </t>
+
+                                    <t t-if="res_company.state_id.name">
+                                        <span t-field="res_company.state_id.name"/>,
+                                    </t>
+
+                                    <t t-if="res_company.partner_id.zip">
+                                        <span t-field="res_company.partner_id.zip"/>,
+                                    </t>
+
+                                     <t t-if="res_company.country_id.name">
+                                        <span t-field="res_company.country_id.name"/><br/>
+                                    </t>
+
+
+                                    Phone: <span t-field="res_company.partner_id.phone"/><br/></p>
+
+                              <!--</div>-->
+
+                                     <!--<div style="float: center;">-->
+
+
+
+                                          <!--<img-->
+                    <!--t-if="res_company.logo"-->
+                    <!--t-att-src="image_data_uri(res_company.logo)"-->
+                    <!--alt="Logo" style="max-height: 90px;"-->
+                <!--/>-->
+
+                                     <!--</div>-->
+
+
+
+
+                                 </td>
+
+                             <td colspan="5" style="border-right:2px solid black;border-collapse:collapse;">
+                               <center>
+                                   <img
+                    t-if="res_company.logo"
+                    t-att-src="image_data_uri(res_company.logo)"
+                    alt="Logo" style="max-height:160px;margin-right:250px"
+                />
+                               </center>
+                             </td>
+
+                             </tr>
+
+                             <!--<tr >-->
+                                 <!--<td colspan="8" style="border-right:2px solid black;border-collapse:collapse;">-->
+
+
+                      <!--<center>-->
+
+                                            <!--<img-->
+                    <!--t-if="res_company.logo"-->
+                    <!--t-att-src="image_data_uri(res_company.logo)"-->
+                    <!--alt="Logo" style="max-height: 80px;"-->
+                <!--/>-->
+                                        <!--</center>-->
+
+                                 <!--</td>-->
+
+                             <!--</tr>-->
+
+
+                                    <tr>
+
+
+                                    <td colspan="9" style="border-right:2px solid black;border-collapse:collapse;">
+
+
+
+                            <!--<img t-att-src="'/phygi_purchase_order_print/static/src/image/logo.png'" style="max-height: 65px;"/><br></br>-->
+                             <!--<img t-att-src="'/phygi_purchase_order_print/static/src/image/logo.jpg'" style="max-height: 65px;"/><br></br>-->
+                              <!--<img src="'/phygi_purchase_order_print/static/src/image/logo.jpg'" style="max-height: 65px;"/><br></br>-->
+
+
+
+
+                                        <center>
+
+
+
+                                            <h2>
+
+                                                <u>PURCHASE ORDER</u>
+                                             </h2></center>
+
+                                    </td>
+                                </tr>
+
+
+                             <tr>
+                                 <td align="left" style="font-weight:bold;background-color:#B0B0B0;padding:3px;font-size:13px;">
+
+                                                VENDOR
+
+
+                                 </td>
+                                 <td colspan="8" style="border-right:2px solid black;border-collapse:collapse;"></td>
+                             </tr>
+
+
+                              <tr>
+
+
+                                    <td colspan="9" style="border-right:2px solid black;border-collapse:collapse;">
+
+
+                                        <div style="font-weight:bold;">
+                                <p style="font-size : 12px;">
+                                    <t t-esc="o.partner_id.name"/><br/>
+                                    <t t-esc="o.partner_id.street"/><br/>
+                                    <t t-esc="o.partner_id.street2"/><br/>
+
+
+
+                                    <t t-if="o.partner_id.city">
+                                        <t t-esc="o.partner_id.city"/><br></br>
+                                    </t>
+
+                                    <t t-if="o.partner_id.state_id.name">
+                                        <t t-esc="o.partner_id.state_id.name"/>,
+                                    </t>
+
+                                    <t t-if="o.partner_id.zip">
+                                        <t t-esc="o.partner_id.zip"/>,
+                                    </t>
+
+                                     <t t-if="o.partner_id.country_id.name">
+                                        <t t-esc="o.partner_id.country_id.name"/><br/>
+                                    </t>
+
+
+
+                                    <!--<t t-esc="o.partner_id.city"/><br/>-->
+                                    <!--<t t-esc="o.partner_id.state_id.name"/><br/>-->
+                                    <!--<t t-esc="o.partner_id.zip"/><br/>-->
+                                    <!--<t t-esc="o.partner_id.country_id.name"/><br/>-->
+                                    Phone: <t t-esc="o.partner_id.phone"/><br/>
+                                    GSTIN:<t t-esc="o.partner_id.vat"/><br></br>
+                                 </p>
+
+                              </div>
+
+
+
+                                    </td>
+                                </tr>
+
+
+                             <tr>
+                                 <td colspan="9" style="border-left: 1px solid black;border-right: 2px solid black;border-collapse: collapse;"></td>
+                             </tr>
+
+
+
+
+                                                     <tr style="Text-align:center; font-weight:bold;border-right: 1px solid black;border: 1px solid black;border-collapse: collapse;background-color:#B0B0B0;">
+                                                         <td width="5%" align="center" style="border-right: 1px solid black;border-collapse: collapse;">ITEM</td>
+                                                         <td width="60%" align="center" style="border-right: 1px solid black;border-collapse: collapse;" colspan="4">DESCRIPTION</td>
+                                                         <td width="10%" align="center" style="border-right: 1px solid black;border-collapse: collapse;">QTY</td>
+                                                         <td width="10%" align="center" style="border-right: 1px solid black;border-collapse: collapse;">UNIT PRICE</td>
+                                                         <td width="15%" align="center" colspan="2" style="border-right: 2px solid black;border-collapse: collapse;">TOTAL</td>
+                                                     </tr>
+
+
+                              <tr t-foreach="o.order_line" t-as="l" style="Text-align:center;border-right: 1px solid black;border: 1px solid black;border-collapse: collapse;" >
+                                <td width="5%" align="center" style="font-weight:bold;border-right: 1px solid black;border-collapse: collapse;" ><t t-esc="l_index+1"/></td>
+                                <td width="60%" align="center" colspan="4" style="font-weight:bold;border-right: 1px solid black;border-collapse: collapse;"><t t-esc="l.product_id.name"/></td>
+                                <td width="10%" align="center" style="font-weight:bold;border-right: 1px solid black;border-collapse: collapse;"><span t-field="l.product_qty"/></td>
+                                <td width="10%" align="right" style="font-weight:bold;border-right: 1px solid black;border-collapse: collapse;"><t t-esc="'{0:,.2f}'.format(float(l.price_unit))" /></td>
+                                <td width="15%" align="right" colspan="2" style="font-weight:bold;background-color:#BEBEBE;border-right: 2px solid black;border-collapse: collapse;"><t t-esc="'{0:,.2f}'.format(float(l.price_subtotal))" /></td>
+                            </tr>
+                             <tr>
+
+                                 <td colspan="5" ></td>
+                                 <td colspan="2" style="border-bottom : none;border-top : none;background-color:#B0B0B0;" ><span style="Text-align:left; font-weight:bold;">Sub Total</span> </td>
+                                 <td colspan="2" align="right" style="font-weight:bold;Text-align:right;background-color:#B0B0B0;border-right:2px solid black;border-collapse:collapse;"> <t t-esc="'{0:,.2f}'.format(float(o.amount_untaxed))" /></td>
+                             </tr>
+
+
+                             <tr height="20">
+                                 <td colspan="9" style="border-left: 1px solid black;border-right: 2px solid black;border-collapse: collapse;"></td>
+                             </tr>
+                             <tr>
+                                 <td colspan="9" style="border-bottom:0;border-left: 1px solid black;border-right: 2px solid black;border-collapse: collapse;"></td>
+                             </tr>
+
+
+
+                             <tr>
+
+                                 <td width="70%" colspan="4" style="background-color:#B0B0B0;Text-align:center;border-bottom: 1px solid black;border-right: 1px solid black;border-collapse: collapse;font-weight:bold;">Other Comments For Special Instructions</td>
+                                 <td width="30%" colspan="5" style="border-bottom:0;border-top:0;border-right: 2px solid black;border-collapse: collapse;"></td>
+                             </tr>
+
+                             <tr>
+                                <td colspan="4" style="Text-align:center;border-right: 1px solid black;border-collapse: collapse;"></td>
+                                 <td></td>
+                                 <td align="right" style="border-bottom:0;font-weight:bold;">
+
+                                      <t t-if="o.partner_id.state_id.name=='Kerala'">
+
+                                                       CGST
+
+                                                     </t>
+
+
+                                 </td>
+                                 <td align="right" style="border-bottom:0;">
+
+                                 </td>
+                                 <td colspan="2" align="right" style="font-weight:bold;border-right: 2px solid black;border-collapse: collapse;">
+
+                                     <t t-if="o.partner_id.state_id.name=='Kerala'">
+
+                                                       <t t-esc="'{0:,.2f}'.format(float(o.amount_tax/2))" />
+
+                                                     </t>
+                                 </td>
+
+                             </tr>
+
+                             <tr>
+                                <td colspan="4" style="Text-align:center;border-right: 1px solid black;border-collapse: collapse;"></td>
+                                 <td></td>
+                                 <td align="right" style="border-bottom:0;font-weight:bold;">
+
+                                      <t t-if="o.partner_id.state_id.name=='Kerala'">
+
+                                                       SGST
+
+                                                     </t>
+
+
+                                 </td>
+                                 <td align="right" style="border-bottom:0;">
+
+                                 </td>
+                                 <td colspan="2" align="right" style="font-weight:bold;border-right: 2px solid black;border-collapse: collapse;">
+                                     <t t-if="o.partner_id.state_id.name=='Kerala'">
+
+                                                       <t t-esc="'{0:,.2f}'.format(float(o.amount_tax/2))" />
+
+                                                     </t>
+                                 </td>
+
+                             </tr>
+
+                             <tr height="30">
+                                <td colspan="4" style="border-bottom:1px solid black;Text-align:center;border-right: 1px solid black;border-collapse: collapse;"></td>
+                                 <td style="border-bottom:0;"></td>
+                                 <td align="right" style="border-bottom:0;font-weight:bold;">
+
+                                     <t t-if="o.partner_id.state_id.name!='Kerala'">
+                                   IGST
+                                                     </t>
+                                     </td>
+                                 <td align="right" style="border-bottom:0;">
+
+
+
+
+
+                                 </td>
+                                 <td colspan="2" align="right" style="font-weight:bold;border-right: 2px solid black;border-collapse: collapse;">
+                                     <t t-if="o.partner_id.state_id.name!='Kerala'">
+
+                                                       <t t-esc="'{0:,.2f}'.format(float(o.amount_tax))" />
+
+                                                     </t>
+                                 </td>
+
+                             </tr>
+
+
+                             <!--<tr style="visibility:hidden;border-right: 2px solid black;border-left: 2px solid black;border-collapse: collapse;">-->
+                                 <!--<td colspan="8" style="visibility:hidden;border-right: 2px solid black;border-left: 2px solid black;border-collapse: collapse;">-->
+
+                                 <!--</td>-->
+                             <!--</tr>-->
+
+                             <tr>
+                                 <td colspan="4" style="border-top:0;border-bottom:0"></td>
+                                <td colspan="3" style="border-top:0;border-bottom:0;"></td>
+                                <td colspan="2" style="border-right: 2px solid black;border-top: 2px solid black;border-collapse: collapse;Text-align:right; font-weight:bold;background-color:#B0B0B0; "><t t-esc="'{0:,.2f}'.format(float(o.amount_total))" /></td>
+
+
+
+                             </tr>
+
+
+                              <tr>
+                                <td align="left" colspan="4" style="font-weight:bold; ">
+                                    <u>Created &amp; Verified By:-</u>
+
+
+                                </td>
+                                <td colspan="3" style="font-weight:bold; ">
+                                    <u>Date &amp; Time:-</u>
+
+
+                                </td>
+                                  <td colspan="2" style="border-right: 2px solid black;border-collapse: collapse;"></td>
+
+                             </tr>
+                             <tr height="10">
+                                 <td colspan="9" style="border-left: 1px solid black;border-right: 2px solid black;border-collapse: collapse;"></td>
+                             </tr>
+
+
+                              <tr>
+                                <td align="left" colspan="4" style="font-weight:bold; ">
+
+                                    <t t-esc="o.purchase_creation.name"/>
+
+
+                                </td>
+                                <td colspan="3" style="font-weight:bold; ">
+
+                                 <t t-if="o.purchase_creation_date">
+
+
+                                  <t t-esc="datetime.datetime.strptime(str(o.purchase_creation_date), '%Y-%m-%d %H:%M:%S').strftime('%d-%m-%Y %H:%M:%S')"/>
+
+                                 </t>
+
+                                </td>
+                                  <td colspan="2" style="border-right: 2px solid black;border-collapse: collapse;"></td>
+
+                             </tr>
+
+
+                             <tr>
+                                 <td colspan="9" style="border-left: px solid black;border-right: 2px solid black;border-collapse: collapse;"></td>
+                             </tr>
+
+
+
+
+
+
+                             <tr>
+                                <td align="left" colspan="4" style="font-weight:bold; ">
+                                    <u>Approved By:-</u>
+
+                                </td>
+                                <td colspan="3" style="font-weight:bold; ">
+                                    <u>Date &amp; Time:-</u>
+                                </td>
+                                  <td colspan="2" style="border-right: 2px solid black;border-collapse: collapse;"></td>
+
+                             </tr>
+
+                             <tr height="10">
+                                 <td colspan="9" style="border-left: 1px solid black;border-right: 2px solid black;border-collapse: collapse;"></td>
+                             </tr>
+
+
+                             <tr>
+                                <td align="left" colspan="4" style="font-weight:bold; ">
+                                    <t t-esc="o.financial_representative.name"/>
+
+                                </td>
+                                <td colspan="3" style="font-weight:bold; ">
+
+                                     <t t-if="o.financial_creation_date">
+
+
+                                  <t t-esc="datetime.datetime.strptime(str(o.financial_creation_date), '%Y-%m-%d %H:%M:%S').strftime('%d-%m-%Y %H:%M:%S')"/>
+
+                                 </t>
+                                    <!--<t t-esc="o.financial_creation_date"/>-->
+                                </td>
+                                  <td colspan="2" style="border-right: 2px solid black;border-collapse: collapse;"></td>
+
+                             </tr>
+
+
+                             <tr>
+                                <td align="left" colspan="4" style="font-weight:bold; ">
+                                    <t t-esc="o.manager_representative.name"/>
+                                </td>
+                                <td colspan="3" style="font-weight:bold; ">
+
+                                     <t t-if="o.manager_creation_date">
+
+
+                                  <t t-esc="datetime.datetime.strptime(str(o.manager_creation_date), '%Y-%m-%d %H:%M:%S').strftime('%d-%m-%Y %H:%M:%S')"/>
+
+                                 </t>
+                                    <!--<t t-esc="o.manager_creation_date"/>-->
+                                </td>
+                                  <td colspan="2" style="border-right: 2px solid black;border-collapse: collapse;"></td>
+
+                             </tr>
+
+                             <tr>
+                                 <td colspan="9" style="border-left: 1px solid black;border-right: 2px solid black;border-collapse: collapse;"></td>
+                             </tr>
+
+
+                              <tr>
+                                <td align="left" colspan="4" style="font-weight:bold; ">
+                                    <u>Authorised By:-</u>
+                                </td>
+                                <td colspan="3" style="font-weight:bold; ">
+                                    <u>Date &amp; Time:-</u>
+                                </td>
+                                  <td colspan="2" style="border-right: 2px solid black;border-collapse: collapse;"></td>
+
+                             </tr>
+
+                             <tr height="10">
+                                 <td colspan="9" style="border-left: 1px solid black;border-right: 2px solid black;border-collapse: collapse;"></td>
+                             </tr>
+
+                              <tr>
+                                <td align="left" colspan="4" style="font-weight:bold; ">
+                                    <t t-esc="o.authorised_by.name"/>
+                                </td>
+                                <td colspan="3" style="font-weight:bold; ">
+
+                                    <t t-if="o.authorisation_date">
+
+
+                                  <t t-esc="datetime.datetime.strptime(str(o.authorisation_date), '%Y-%m-%d %H:%M:%S').strftime('%d-%m-%Y %H:%M:%S')"/>
+
+                                 </t>
+                                    <!--<t t-esc="o.authorisation_date"/>-->
+                                </td>
+                                  <td colspan="2" style="border-right: 2px solid black;border-collapse: collapse;"></td>
+
+                             </tr>
+
+                             <tr>
+                                 <td colspan="9" style="border-left: 1px solid black;border-right: 2px solid black;border-collapse: collapse;"></td>
+                             </tr>
+
+                             <tr>
+                                 <td colspan="9" style="font-weight:bold;border-right: 2px solid black;border-collapse: collapse;"><span>If you have any question about this purchase order please contact :-</span><br/>
+                                     <span><b>Purchase department</b></span><br></br>
+
+                                     <span><b>Tele :- +91 9207017000</b></span>
+
+                                 </td>
+                             </tr>
+
+
+
+
+
+                             <!--<tr>-->
+
+                                 <!--<td colspan="4" style="visibility:hidden; "></td>-->
+                                 <!--<td colspan="2" style="  border-bottom : none;border-top : none; "><span style="Text-align:left; font-weight:bold;">VAT</span></td>-->
+                                 <!--<td colspan="2" style="Text-align:right;"> <t t-esc="'{0:,.2f}'.format(float(o.amount_tax))" /></td>-->
+                             <!--</tr>-->
+                            <!---->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        </table>
+
+
+                     </div>
+
+
+                </div>
+ </t>
+ </t>
+</template>
+    </data>
+</odoo>
+

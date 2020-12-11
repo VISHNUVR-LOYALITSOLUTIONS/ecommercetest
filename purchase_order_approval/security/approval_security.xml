@@ -1,0 +1,22 @@
+<odoo>
+    <data>
+
+        <record model="res.groups" id="group_financial_approval" >
+                <field name="name">Financial Approval</field>
+        </record>
+
+        <record model="res.groups" id="group_ceo_approval" >
+                <field name="name">Purchase Manager Approval</field>
+        </record>
+
+
+        <record model="res.groups" id="group_ceo_approval_approval" >
+                <field name="name">CEO Approval</field>
+        </record>
+
+
+            <!--<record id="myform_ID" model="ir.ui.menu" >-->
+                 <!--<field name="groups_id" eval="[(6, 0, [ref('group_recruitment')])]"/>-->
+            <!--</record>-->
+    </data>
+</odoo>

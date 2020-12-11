@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="report_own_product">
+        <t t-call="web.html_container">
+            <!--<t t-set="data_report_margin_top" t-value="12"/>-->
+            <!--<t t-set="data_report_header_spacing" t-value="9"/>-->
+            <!--<t t-set="data_report_dpi" t-value="110"/>-->
+
+            <t t-call="web.internal_layout">
+                <div class="page">
+                    <style type="text/css">
+                        .tdCenter{text-align:center;padding: 5px;border:1px solid #000000;}
+                        .tdLeft{text-align:left;padding: 5px;border:1px solid #000000;}
+                        .tdRight{text-align:right;padding: 5px;border:1px solid #000000;}
+                        .bold{font-weight: bold; }
+                        .line-height35{line-height: 35px;}
+                        .blue{ background-color: #e2e8e8;}
+                        .bghead{background-color: #7b0b5b;color: #ffffff;}
+                        .bgcolor{background-color: #929393;color: #ffffff;}
+                    </style>
+                    <div class="row">
+
+                        <div class="col-xl-12"
+                             style="text-align: center;font-family:Calibri !important;">
+                            <t>
+                                <img t-if="res_company.logo"
+                                     t-att-src="'data:image/png;base64,%s' %res_company.logo" class="center"
+                                     style="height: 80px;width: 80px;"/>
+                            </t>
+                            <br/>
+                            <span style="color:green;font-size:18px;font-weight: bold;">
+                                <t t-esc="res_company.name"/>
+                            </span>
+                            <br/>
+                            <span style="font-size:13px;font-weight: bold;">
+                                <t t-if="res_company.street">
+                                    <t t-esc="res_company.street"/>,
+                                </t>
+                                <t t-if="res_company.street2">
+                                    <t t-esc="res_company.street2"/>
+
+                                </t>
+
+                                <t t-if="res_company.city">
+                                    <br/>
+                                    <t t-esc="res_company.city"/>
+                                </t>
+
+                                <t t-if="res_company.state_id">
+                                    <br/>
+                                    <t t-esc="res_company.state_id.name"/>,
+                                </t>
+                                <t t-if="res_company.zip">
+                                    <t t-esc="res_company.zip"/>,
+                                </t>
+                                <t t-if="res_company.country_id">
+                                    <t t-esc="res_company.country_id.name"/>
+                                </t>
+                                <t t-if="res_company.email">
+                                    .EMAIL -
+                                    <t t-esc="res_company.email"/>
+                                </t>
+                            </span>
+
+                        </div>
+                    </div>
+
+                <t t-if="target_move" >
+
+                    <div class="row">
+                        <div class="col-xl-12"
+                             style="text-align: center;font-size:16px;font-family:Calibri !important;color:red;font-weight: bold;">
+                           Own Product Sales Report
+                        </div>
+                    </div>
+
+                    <div class="col-xl-12" width="100%">
+                        <table cellpading="0" cellspacing="0" border="0" width="100%">
+
+                             <b style="font-size:18px;"> Start Date : <t t-esc="date_start"/> <![CDATA[&nbsp;]]>
+                                End Date : <t t-esc="date_end"/> </b>
+                           <br/><br/>
+                        </table>
+
+                    </div>
+
+                     <t t-set="taxtotal" t-value="0"/>
+                <t t-set="qtytotal" t-value="0"/>
+                    <t t-set="totaltotal" t-value="0"/>
+                    <t t-set="untaxtotal" t-value="0"/>
+
+
+                    <!--<table class="table table-condensed">-->
+
+                    <!--<t t-if="target_move" >-->
+                        <table style="width:100%">
+                        <thead>
+                            <tr class="text-center">
+
+                                <th style="width:5%;padding:3px;" class="tdCenter bghead">Sl No.</th>
+                                <th style="width:12%;padding:3px;" class="tdCenter bghead">Date</th>
+                                <th style="width:30%;padding:3px;" class="tdCenter bghead">Product</th>
+                                <th style="width:10%;padding:3px;" class="tdCenter bghead">Unit Price</th>
+                                <th style="width:7%;padding:3px;" class="tdCenter bghead">Qty</th>
+                                <th style="width:12%;padding:3px;" class="tdCenter bghead">Tax Amount</th>
+                                <th style="width:12%;padding:3px;" class="tdCenter bghead">Untax Amount</th>
+                                <th style="width:12%;padding:3px;" class="tdCenter bghead">Total Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+
+                            <t t-foreach="get_sale" t-as="line_ids" >
+                                        <tr style="page-break-inside: avoid;">
+                                            <td style="border: 1px solid black;border-collapse:collapse;text-align:center;padding:3px;">
+                                                <span t-esc="line_ids['sl_no']"/>
+                                            </td>
+                                            <td style="border: 1px solid black;border-collapse:collapse;padding:3px;">
+                                                <span t-esc="line_ids['saledate']"/>
+                                            </td>
+
+                                            <td style="border: 1px solid black;border-collapse:collapse;padding:3px;">
+                                                <span t-esc="line_ids['product_name']"/>
+                                            </td>
+
+                                             <td style="border: 1px solid black;border-collapse:collapse;padding:3px;text-align:center;">
+                                                <span t-esc="line_ids['list_price']"/>
+                                            </td>
+                                            <td style="border: 1px solid black;border-collapse:collapse;text-align:center;padding:3px;">
+                                                <span t-esc="'{0:,.2f}'.format(float(line_ids['qty']))"/>
+                                                <t t-set="qtytotal" t-value="qtytotal + line_ids['qty']" />
+
+                                            </td>
+
+                                            <td style="border: 1px solid black;border-collapse:collapse;text-align:center;padding:3px;">
+                                                <span t-esc="'{0:,.2f}'.format(float(line_ids['tax']))"/>
+                                                <t t-set="taxtotal" t-value="taxtotal + line_ids['tax']" />
+
+                                            </td>
+
+                                             <td style="border: 1px solid black;border-collapse:collapse;text-align:center;padding:3px;">
+                                                <span t-esc="'{0:,.2f}'.format(float(line_ids['untax_amount']))"/>
+                                                <t t-set="untaxtotal" t-value="untaxtotal + line_ids['untax_amount']" />
+
+                                            </td>
+
+                                             <td style="border: 1px solid black;border-collapse:collapse;text-align:center;padding:3px;">
+                                                <span t-esc="'{0:,.2f}'.format(float(line_ids['total_amount']))"/>
+                                                <t t-set="totaltotal" t-value="totaltotal + line_ids['total_amount']" />
+
+                                            </td>
+
+
+                                        </tr>
+
+                                    </t>
+                        <tr >
+
+                             <td colspan="4" style="text-align:center;border: 1px solid black;border-collapse:collapse;padding:3px;">
+                                <span><b>Total</b></span>
+                            </td>
+
+                             <td style="border: 1px solid black;border-collapse:collapse;text-align:center;padding:3px;">
+                                <b> <t t-esc="'{0:,.2f}'.format(float(qtytotal))" /></b>
+                            </td>
+                             <td style="border: 1px solid black;border-collapse:collapse;text-align:center;padding:3px;">
+                                <b> <t t-esc="'{0:,.2f}'.format(float(taxtotal))" /></b>
+                            </td>
+
+                            <td style="border: 1px solid black;border-collapse:collapse;text-align:center;padding:3px;">
+                                <b> <t t-esc="'{0:,.2f}'.format(float(untaxtotal))" /></b>
+                            </td>
+
+                            <td style="border: 1px solid black;border-collapse:collapse;text-align:center;padding:3px;">
+                                <b> <t t-esc="'{0:,.2f}'.format(float(totaltotal))" /></b>
+                            </td>
+
+
+
+
+                        </tr>
+
+
+
+                        </tbody>
+                    </table>
+                    </t>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <t t-if="not target_move" >
+                        <br></br>
+                        <table style="width:100%">
+
+                                <t t-foreach="get_sale" t-as="line_ids" >
+
+                             <tr>
+                                <th style="width:12%;padding:3px;" align="left">Report</th>
+                                <td>:<![CDATA[&nbsp;]]>Own Product Sales Report</td>
+                              </tr>
+                              <tr>
+                                 <th style="width:30%;padding:3px;" align="left">Date</th>
+                                <td>:<![CDATA[&nbsp;]]><t t-esc="date_start"/> <![CDATA[&nbsp;]]>
+                                to <t t-esc="date_end"/></td>
+                              </tr>
+                              <tr>
+                               <th style="width:10%;padding:3px;" align="left">Branch</th>
+                                <td>:<![CDATA[&nbsp;]]><t t-esc="operating_unit"/></td>
+                              </tr>
+
+
+                            <tr>
+                            <th style="width:7%;padding:3px;" align="left">Qty</th>
+                            <td>:<![CDATA[&nbsp;]]><span t-esc="line_ids['qty']"/></td>
+                          </tr>
+                          <tr>
+                            <th style="width:12%;padding:3px;" align="left">Tax Amount</th>
+                            <td>:<![CDATA[&nbsp;]]><span t-esc="'{0:,.2f}'.format(float(line_ids['tax']))"/></td>
+                          </tr>
+                          <tr>
+                          <th style="width:12%;padding:3px;" align="left">Untax Amount</th>
+                            <td>:<![CDATA[&nbsp;]]><span t-esc="'{0:,.2f}'.format(float(line_ids['untax_amount']))"/></td>
+                          </tr>
+                            <tr>
+
+                            <th style="width:12%;padding:3px;" align="left">Total Amount</th>
+                            <td>:<![CDATA[&nbsp;]]><span t-esc="'{0:,.2f}'.format(float(line_ids['total_amount']))"/></td>
+                          </tr>
+                                </t>
+
+                    </table>
+                    </t>
+
+
+
+                </div>
+            </t>
+        </t>
+    </template>
+
+
+    <record id="action_report_own_product" model="ir.actions.report">
+        <field name="name">Own Product Sales Report</field>
+        <field name="model">report.own_product_salesreport.report_own_product</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">own_product_salesreport.report_own_product</field>
+    </record>
+
+
+</odoo>

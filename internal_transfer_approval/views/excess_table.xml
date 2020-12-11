@@ -1,0 +1,87 @@
+<odoo>
+  <data>
+
+
+       <record model="ir.ui.view" id="branch_excess_tree_view">
+            <field name="name">Excess Amount Transferred tree</field>
+            <field name="model">branch.excess.limit</field>
+            <field name="arch" type="xml">
+                <tree string="Rooms">
+                     <field name="reference_no" />
+
+                            <field name="picking_date" />
+
+                              <field name="excess_amount"/>
+
+                            <field name="source_location"/>
+
+                            <field name="destination_location"/>
+                </tree>
+            </field>
+        </record>
+
+
+
+
+
+
+    <record model="ir.ui.view" id="branch_excess_setup_form">
+      <field name="name">Excess Amount Transferred Form</field>
+      <field name="model">branch.excess.limit</field>
+      <field name="arch" type="xml">
+
+              <form string="Branch Limit">
+
+                <sheet>
+
+                    <field name="reference_no" style="font-size:14px;"/>
+
+                    <group>
+                        <group>
+                            <field name="picking_date" />
+
+                              <field name="excess_amount"/>
+                        </group>
+                        <group>
+                            <field name="source_location"/>
+
+                            <field name="destination_location"/>
+                        </group>
+                    </group>
+
+
+
+                </sheet>
+              </form>
+      </field>
+    </record>
+
+
+
+
+
+
+
+
+    <!-- actions opening views on models -->
+
+    <record model="ir.actions.act_window" id="branch_limit_action_window">
+      <field name="name">Excess Amount Transferred</field>
+      <field name="res_model">branch.excess.limit</field>
+      <field name="view_mode">tree,form</field>
+         <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">Create
+                </p>
+            </field>
+    </record>
+
+
+
+
+
+    <menuitem name="Excess Amount Transferred" id="branch_limit_submenu" parent="stock.menu_warehouse_report"
+              action="branch_limit_action_window"/>
+
+
+  </data>
+</odoo>

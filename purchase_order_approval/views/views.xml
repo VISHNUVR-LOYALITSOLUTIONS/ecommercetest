@@ -1,0 +1,64 @@
+<odoo>
+  <data>
+
+
+      <!--<record model="ir.ui.view" id="po_approval_form_view">-->
+            <!--<field name="name">res.users</field>-->
+            <!--<field name="model">res.users</field>-->
+            <!--<field name="inherit_id" ref="base.view_users_form"/>-->
+            <!--<field name="arch" type="xml">-->
+
+
+               <!--<xpath expr="//page[@name='access_rights']/group[1]" position="after">-->
+                <!--<group string="Purchase Order Approval">-->
+                    <!--<field  name="financial_security"/>-->
+                    <!--<field  name="ceo_security"/>-->
+                <!--</group>-->
+            <!--</xpath>-->
+
+
+         <!--</field>-->
+        <!--</record>-->
+
+
+
+    <record id="purchase_order_form" model="ir.ui.view">
+        <field name="name">purchase.order.form - purchase_order_approved</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+
+            <button name="button_cancel" position="attributes">
+                <attribute name="states">draft,to approve,sent,purchase,cancel,waiting_for_financial_approval,to approve,waiting_for_manager_approval</attribute>
+            </button>
+
+            <button name="button_draft" position="attributes">
+                <attribute name="states">cancel,waiting_for_financial_approval,to approve,waiting_for_manager_approval</attribute>
+            </button>
+            <button name="button_confirm" position="after">
+                <button name="button_release" type="object" states='waiting_for_financial_approval'
+                        groups="purchase_order_approval.group_financial_approval"
+                        string="Financial Approval"
+                        class="oe_highlight"/>
+            </button>
+
+             <button name="button_approve" position="attributes">
+                 <attribute name="groups">purchase_order_approval.group_ceo_approval_approval</attribute>
+                <attribute name="string">CEO Approval</attribute>
+            </button>
+
+            <button name="button_approve" position="after">
+                <button name="button_ceo" type="object" states='waiting_for_manager_approval'
+                        groups="purchase_order_approval.group_ceo_approval"
+                        string="Manager Approval"
+                        class="oe_highlight"/>
+            </button>
+        </field>
+    </record>
+
+    <record id="purchase.purchase_form_action" model="ir.actions.act_window">
+        <field name="domain">[('state','in',('waiting_for_financial_approval','to approved','waiting_for_manager_approval','purchase', 'done'))]</field>
+    </record>
+
+  </data>
+</odoo>

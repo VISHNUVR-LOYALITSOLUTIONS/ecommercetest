@@ -1,0 +1,20 @@
+<odoo>
+  <data>
+    <record model="ir.ui.view" id="branch_policies_form_view">
+            <field name="name">branch.policies</field>
+            <field name="model">operating.unit</field>
+            <field name="inherit_id" ref="operating_unit.view_operating_unit_form"/>
+            <field name="arch" type="xml">
+        <!-- find field description and add the field
+             idea_ids after it -->
+        <xpath expr="//field[@name='partner_id']" position="after">
+            <group string="Configure Branch Policies" >
+          <field name="select_rule" string="Select Rule"/>
+          <field name="branch_limit" string="Amount"/>
+            </group>
+        </xpath>
+         </field>
+        </record>
+
+  </data>
+</odoo>

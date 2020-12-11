@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+       <record id="id_wizard_message_form" model="ir.ui.view">
+            <field name="name">Approval Message</field>
+            <field name="model">approval.message</field>
+            <field name="arch" type="xml">
+                <form string="Message">
+                     <group>
+
+                          <label for="text" string="Your Transaction Limit Is Exceeded.Are you sure you want to process this?"/>
+                        <!--<form string="Your Transaction Limit Is Exceeded.Are you sure you want to process this?"/>-->
+                    </group>
+
+                    <footer>
+                        <button name="btn_approve" type="object" string="Yes" class="oe_highlight"/>
+                        <!--confirm="Your Custom message like Are you sure you want to process this?"/>-->
+                        <button special="cancel" string="No"/>
+                    </footer>
+                </form>
+            </field>
+    </record>
+
+
+       <record id="wizard_message_action" model="ir.actions.act_window">
+            <field name="name">Approval Message</field>
+            <field name="res_model">approval.message</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="id_wizard_message_form"/>
+            <field name="target">new</field>
+        </record>
+
+    <!-- actions opening views on models -->
+
+
+
+
+
+
+    <menuitem name="Transferred" id="submenu" parent="stock.menu_warehouse_report"
+              action="wizard_message_action" groups="internal_transfer_approval.hide"/>
+
+
+</odoo>

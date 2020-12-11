@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_phygi_purchase_order_print_phygi_purchase_order_print,phygi_purchase_order_print.phygi_purchase_order_print,model_phygi_purchase_order_print_phygi_purchase_order_print,base.group_user,1,1,1,1

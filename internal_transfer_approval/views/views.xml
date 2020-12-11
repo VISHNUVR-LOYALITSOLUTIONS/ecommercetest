@@ -1,0 +1,100 @@
+<odoo>
+  <data>
+
+
+
+
+
+    <record id="stock_picking_order_form" model="ir.ui.view">
+        <field name="name">stock form</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+
+               <xpath expr="//sheet/group/group/field[@name='location_id']" position="after">
+                    <field name="tmp_source_loaction" domain="[('security_confirm','=',True)]" attrs="{'invisible': [('state', 'not in', ('validate_confirm','done'))]}"/>
+                    <!--<field name="virtual_loaction" attrs="{'invisible': [('security_confirm', '=', False)]}"/>-->
+
+                   <field name="branch_excess_amount" invisible="1"/>
+                <field name="security_confirm" invisible="1"/>
+                   <field name="security_validate" invisible="1"/>
+                <field name="tmp_destination_loaction" invisible="1"/>
+            </xpath>
+
+            <xpath expr="//sheet/group/group/field[@name='origin']" position="after">
+                    <field name="virtual_loaction" attrs="{'invisible': [('security_confirm', '=', False)]}"/>
+
+
+            </xpath>
+
+            <button name="action_cancel" position="attributes">
+                <attribute name="states">draft,send_to_logistic_approval,send_to_manager_approval,
+                                            'ready_to_transfer,stock_in_transist,validate_confirm</attribute>
+            </button>
+
+            <!--<button name="button_draft" position="attributes">-->
+                <!--<attribute name="states">cancel,send_to_logistic_approval,send_to_manager_approval,-->
+                                            <!--ready_to_transfer,stock_in_transist,validate_confirm</attribute>-->
+            <!--</button>-->
+            <button name="button_validate" position="before">
+                <button name="confirm_button" type="object"
+                        string="Confirm"
+                        groups="internal_transfer_approval.group_inventory_confirm_approval"
+                        attrs="{'invisible':['|',('security_confirm','=',False),('state','in',('send_to_logistic_approval','send_to_manager_approval','ready_to_transfer','stock_in_transist','validate_confirm','done'))]}"
+                        class="oe_highlight"/>
+
+
+               <button name="confirm_logistic_approval" type="object" states='send_to_logistic_approval'
+                        string="Logistic Approval"
+                       attrs="{'invisible':['|',('picking_type_code','!=','internal'),('state','in',('draft','waiting','assigned','confirmed','send_to_manager_approval','ready_to_transfer','stock_in_transist','validate_confirm','done'))]}"
+                       groups="internal_transfer_approval.group_logistic_approval"
+                        class="oe_highlight"/>
+
+               <button name="confirm_manager_approval" type="object" states='send_to_manager_approval'
+                        string="Manager Approval"
+                       attrs="{'invisible':['|',('picking_type_code','!=','internal'),('state','in',('draft','waiting','assigned','confirmed','send_to_logistic_approval','ready_to_transfer','stock_in_transist','validate_confirm','done'))]}"
+                       groups="internal_transfer_approval.group_internal_manager_approval"
+                        class="oe_highlight"/>
+
+              <button name="stock_transfer" type="object" states='ready_to_transfer'
+                        string="Stock Transfer"
+                      attrs="{'invisible':['|',('picking_type_code','!=','internal'),('state','in',('draft','waiting','assigned','confirmed','send_to_logistic_approval','send_to_manager_approval','stock_in_transist','validate_confirm','done'))]}"
+                      groups="internal_transfer_approval.group_stock_transfer_approval"
+                        class="oe_highlight"/>
+
+
+              <button name="confirm_validation" type="object" states='stock_in_transist'
+                        string="Confirm"
+                      attrs="{'invisible':['|',('picking_type_code','!=','internal'),('state','in',('draft','waiting','assigned','confirmed','send_to_logistic_approval','send_to_manager_approval','ready_to_transfer','validate_confirm','done'))]}"
+                      groups="internal_transfer_approval.group_inventory_confirm_validate_approval"
+                        class="oe_highlight"/>
+            </button>
+
+             <button name="button_validate" position="attributes">
+                 <attribute name="states">validate_confirm</attribute>
+
+                <attribute name="attrs">{'invisible':[('security_validate', '=', True)]}</attribute>
+
+                 <!--<attribute name="attrs">{'invisible':[('picking_type_id.code', '=', 'internal'),('state','in',('draft','send_to_logistic_approval','send_to_manager_approval','ready_to_transfer','stock_in_transist'))]}</attribute>-->
+
+                         <!--<attribute name="domain">['|','|',-->
+
+            <!--('security_confirm','=',False),('picking_type_id.code', '!=', 'internal'),'&amp;',-->
+                             <!--('picking_type_code','=','internal'),-->
+                             <!--('state','=','validate_confirm'),]</attribute>-->
+                 <!--<attribute name="groups">internal_transfer_approval.group_inventory_validate_approval</attribute>-->
+                 <!--<attribute name="domain">[('picking_type_id.code', '=', 'internal'),('state','=','validate_confirm'),('security_confirm','=',False)]</attribute>-->
+                 <!--<attribute name="attrs">{'invisible':[('security_confirm','=',False)]}</attribute>-->
+             </button>
+
+
+        </field>
+    </record>
+
+    <!--<record id="stock.stock_picking_action_picking_type" model="ir.actions.act_window">-->
+        <!--<field name="domain">[('state','in',('send_to_logistic_approval','send_to_manager_approval',-->
+                                            <!--'ready_to_transfer','stock_in_transist','validate_confirm','done'))]</field>-->
+    <!--</record>-->
+
+  </data>
+</odoo>

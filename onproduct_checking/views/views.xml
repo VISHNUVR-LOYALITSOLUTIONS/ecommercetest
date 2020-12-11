@@ -1,0 +1,45 @@
+<odoo>
+  <data>
+    <record id="own_product_checking" model="ir.ui.view">
+            <field name="name">product.template</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="arch" type="xml">
+              <field name="barcode" position="after">
+                    <field name='own_product'/>
+              </field>
+
+
+            </field>
+    </record>
+
+
+    <record id="own_product_product_on_product_checking" model="ir.ui.view">
+            <field name="name">product.product</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="arch" type="xml">
+              <field name="barcode" position="after">
+                    <field name='own_product'/>
+              </field>
+
+
+            </field>
+    </record>
+
+
+
+
+     <record id="own_product_template_search_view_on_product_checking" model="ir.ui.view">
+            <field name="name">product.template.search.inherit</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_search_view" />
+            <field name="arch" type="xml">
+            <xpath expr="//filter[@name='inactive']" position="after">
+                  <!--<filter string="On Product" name="on_product"/>-->
+                  <filter string="Own Product" name="own_product" domain="[('own_product', '=', True)]" context="{'group_by': 'categ_id'}"></filter>
+            </xpath>
+            </field>
+        </record>
+  </data>
+</odoo>

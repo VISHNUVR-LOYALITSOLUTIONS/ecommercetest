@@ -1,0 +1,37 @@
+<odoo>
+    <data>
+
+
+        <record id="hide" model="res.groups">
+            <field name="name">Hide</field>
+        </record>
+
+        <record model="res.groups" id="group_inventory_confirm_approval">
+                <field name="name">Inventory Confirm Approval</field>
+        </record>
+
+        <record model="res.groups" id="group_logistic_approval">
+                <field name="name">Logistic Approval</field>
+        </record>
+
+
+        <record model="res.groups" id="group_internal_manager_approval">
+                <field name="name">Manager Approval</field>
+        </record>
+
+         <record model="res.groups" id="group_stock_transfer_approval">
+                <field name="name">Stock Transfer Approval</field>
+        </record>
+
+
+        <record model="res.groups" id="group_inventory_confirm_validate_approval">
+                <field name="name">Inventory confirm validate Approval</field>
+        </record>
+
+        <!--<record model="res.groups" id="group_inventory_validate_approval">-->
+                <!--<field name="name">Inventory Validate Approval</field>-->
+        <!--</record>-->
+
+
+    </data>
+</odoo>
